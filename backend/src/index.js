@@ -5,6 +5,8 @@ import messageRoutes from "./routes/message.route.js"
 import dotenv from "dotenv"
 import { connectDb } from "./lib/db.js"
 import cookieParser from "cookie-parser"
+import cors from "cors"
+// cors is a middleware that allows us to make requests from the frontend to the backend
 
 dotenv.config() // you'll be able to use process.env.smth after running this function
 
@@ -24,9 +26,14 @@ app.use(express.json())
 // this middleware is attached to incoming HTTP request and reads the Cookie header
 // then populates the req.cookies. Will allow me to decode the cookie
 // (gibberish text to understandable)
+// will allow me the extract token from cookie (pars)
 app.use(cookieParser())
 
-// will allow me the extract token from cookie (pars)
+app.use(cors({
+    origin: "http://localhost:5173", // allow requests from this URL
+    credentials: true, // allow cookies to be sent in requests
+}))
+
 
 // whenever we get HTTP requests at /api/auth (or requests related to authentication),
 // we'll use the  authRoutes (app.use() --> helps add middleware) 
