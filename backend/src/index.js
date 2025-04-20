@@ -6,12 +6,13 @@ import dotenv from "dotenv"
 import { connectDb } from "./lib/db.js"
 import cookieParser from "cookie-parser"
 import cors from "cors"
+import { app, server } from "./lib/socket.js";
+
 // cors is a middleware that allows us to make requests from the frontend to the backend
 
 dotenv.config() // you'll be able to use process.env.smth after running this function
 
-
-const app = express()
+//const app = express() we'll use socket server instead!
 
 const PORT = process.env.PORT
 
@@ -38,9 +39,9 @@ app.use(cors({
 // whenever we get HTTP requests at /api/auth (or requests related to authentication),
 // we'll use the  authRoutes (app.use() --> helps add middleware) 
 app.use("/api/auth", authRoutes)
-app.use("/api/message", messageRoutes)
+app.use("/api/messages", messageRoutes)
 
-app.listen(PORT, ()=>{
+server.listen(PORT, ()=>{
     // right when the app starts listening, connect to the database
     connectDb()
     console.log("Server is running on port: "+ PORT)
