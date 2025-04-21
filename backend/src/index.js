@@ -31,7 +31,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(cors({
-    origin: ["http://localhost:5173"], // allow requests from this URL
+    origin: ["http://localhost:5173", "https://chat-app-frontend-five-psi.vercel.app"], // allow requests from this URL
     credentials: true, // allow cookies to be sent in requests
 }))
 
