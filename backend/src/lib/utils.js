@@ -5,13 +5,15 @@ export const generateToken = (userId,res)=>{
         expiresIn: "7d"
     })
 
+        // sameSite: "strict",
+        // secure: process.env.NODE_ENV!=="development"
     // after generating the token, we're going to send the token to user
     // via cookie 
     res.cookie("jwt",token, {
         maxAge: 7*24*60*60*1000,
         httpOnly: true,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV!=="development"
+        secure: true,
+        sameSite: "none",
     })
 
     return token
